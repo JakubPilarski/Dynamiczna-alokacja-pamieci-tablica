@@ -1,58 +1,65 @@
-#define SIZE 10
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "array.h"
 void menu() {
     printf("1- Intput Values\n");
-    printf("2- Print Array\n");
-    printf("3- Find Maximum Value\n");
-    printf("4- Find Minium Value\n");
-    printf("5- Calculate Average\n");
-    printf("6- Enter to fail\n");
-    printf("7- Read  fail\n");
-    printf("8- Stop Program\n");
+    printf("2- Delete Values\n");
+    printf("3- Print Array\n");
+    printf("4- Find Maximum Value\n");
+    printf("5- Find Minium Value\n");
+    printf("6- Calculate Average\n");
+    printf("7- Enter to fail\n");
+    printf("8- Read  fail\n");
+    printf("9- Stop Program\n");
 }
 
 int main() {
-    int array[SIZE] = {1, 2, 3, 4, 5, 6, 7 ,8, 9, 10};
+    int *array = NULL;
     int option = 0;
     int min;
     int max;
     float avg;
-    while(option!=8) {
+    int SIZE = 0;
+    while(option!=9) {
         menu();
         printf("choice = ");
         scanf("%d", &option);
         switch(option){
-            case 1 :enterValue(array);
+            case 1 :
+                array = enterValue(array, &SIZE);
                 break;
             case 2 :
-                printArray(array);
+                deleteValues(array,&SIZE);
                 break;
             case 3 :
-                max = findMaximumValue(array);
+                printArray(array, SIZE);
+                break;
+
+            case 4 :
+                max = findMaximumValue(array,SIZE);
                 printf("maxmium value = %d\n",max);
                 break;
-            case 4 :
-                min = findMiniumValue(array);
+            case 5 :
+                min = findMiniumValue(array,SIZE);
                 printf("minium value = %d\n",min);
                 break;
-            case 5:
-                avg= calculateAverage(array);
+            case 6:
+                avg= calculateAverage(array,SIZE);
                 printf("Average valute = %f\n", avg);
-            case 6 :
-                fileenter(array);
-                puts("Zapisano tablice");
-                break;
             case 7 :
-                readFile(array);
+                fileenter(array,SIZE);
+                puts("Array written");
                 break;
             case 8 :
+                readFile(array,SIZE);
+                break;
+            case 9 :
                 break;
 
 
 
         }
     }
-
+    free(array);
 }

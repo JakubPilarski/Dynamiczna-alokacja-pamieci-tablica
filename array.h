@@ -4,11 +4,12 @@
 
 #ifndef UNTITLED11_ARRAY_H
 #define UNTITLED11_ARRAY_H
-void  enterValue(int *array);
-void printArray(int array[]);
-int findMaximumValue(int array[]);
-int findMiniumValue(int array[]);
-float calculateAverage(int array[]);
-void fileenter(int array[]);
-void readFile(int array[]);
+int findMaximumValue(int array[], int SIZE);
+int findMiniumValue(int array[], int SIZE);
+float calculateAverage(int array[], int SIZE);
+void fileenter(int array[], int SIZE);
+void readFile(int array[], int SIZE);
+int* enterValue(int *array, int *s);
+void printArray(int array[], int s);
+int* deleteValues(int *array, int *s);
 #endif //UNTITLED11_ARRAY_H

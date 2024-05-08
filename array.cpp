@@ -2,23 +2,10 @@
 // Created by Admin on 03.05.2024.
 //
 #include "array.h"
-#define SIZE 10
 #include <stdio.h>
 #include <stdlib.h>
 FILE * fptr;
-void  enterValue(int *array){
-    printf("Input values to array:\n");
-    for (int i=0; i < SIZE; ++i) {
-        printf("array[%d] = ", i);
-        scanf("%d", &array[i]);
-    }
-}
-void printArray(int array[]) {
-    for (int i=0; i < SIZE; ++i) {
-        printf("array[%d] = %d\n", i, array[i]);
-    }
-}
-int findMaximumValue(int array[]) {
+int findMaximumValue(int array[], int SIZE) {
     int max = array[0];
     for (int i = 0; i < SIZE; ++i )
     {
@@ -26,15 +13,15 @@ int findMaximumValue(int array[]) {
     }
     return max;
 }
-int findMiniumValue(int array[]) {
+int findMiniumValue(int array[], int SIZE) {
     int min = array[0];
     for (int i = 0; i < SIZE; ++i )
     {
         if(array[i] < min) min = array[i];
-    }
-    return min;
+   }
+   return min;
 }
-float calculateAverage(int array[]){
+float calculateAverage(int array[], int SIZE){
     int sum = 0;
     for (int i = 0; i < SIZE; ++i ) {
         sum = sum + array[i];
@@ -42,7 +29,7 @@ float calculateAverage(int array[]){
     float avg = (float)sum / SIZE;
     return avg;
 }
-void fileenter(int array[])
+void fileenter(int array[], int SIZE)
 {
     fptr = fopen("letters.txt", "w+");
     if (fptr == 0)
@@ -56,17 +43,50 @@ void fileenter(int array[])
 
     fclose(fptr);
 }
-void readFile(int array[])
+void readFile(int array[], int SIZE)
 {
     fptr = fopen("letters.txt", "r+");
-    fseek(fptr, 0, SEEK_SET);
-    printf("Oto zawartosc pliku:\n");
+   fseek(fptr, 0, SEEK_SET);
+    printf("File content:\n");
     for (int i = 0; i < SIZE; i++)
     {
-        array [i] = fgetc(fptr);
+       array [i] = fgetc(fptr);
         fseek(fptr, 0, SEEK_CUR);
         printf("%d\n", array [i]);
     }
     printf("\n");
     fclose(fptr);
+}
+int* enterValue(int *array, int *s) {
+    int element;
+    (*s)++;
+    array = (int *)realloc(array, (*s) * sizeof(int));
+    if (array == NULL) {
+        printf("Memory allocation error!");
+        exit(1);
+    }
+    printf("Enter number to add: ");
+    scanf("%d", &element);
+    array[(*s) - 1] = element;
+    return array;
+}
+void printArray(int array[], int s)
+{
+    for (int i = 0; i < s; i++) {
+        printf("array[%d] = %d\n", i, array[i]);
+    }
+    printf("\n");
+}
+int* deleteValues(int *array, int *s) {
+    if (*s == 0) {
+        printf("Array is already empty!\n");
+        return array;
+    }
+    (*s)--;
+    array = (int *)realloc(array, (*s) * sizeof(int));
+    if (array == NULL && *s > 0) {
+        printf("Memory allocation error!");
+        exit(1);
+    }
+    return array;
 }
